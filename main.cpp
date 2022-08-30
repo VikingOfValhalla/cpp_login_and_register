@@ -1,6 +1,37 @@
 #include <iostream>
 #include <string>
 
+void print_text(std::string string_input) {
+    std::cout << string_input;
+}
+
+std::string account_registration() {
+    std::string username, password;
+
+    print_text("Please select a username: ");
+    std::cin >> username;
+
+    print_text("Please select a password: ");
+    std::cin >> password;
+    
+    // concatentation for unique comparable value
+    std::string username_password_concat = username + password; 
+
+    return username_password_concat;
+}
+
+std::string existing_credential_validation(std::string existing_credential_concat) {
+
+    /*
+    while (existing_credential_concat != NULL) {
+       // do something 
+    }
+    */
+
+    return existing_credential_concat;
+}
+
+
 int main ()
 {
 	int x = 0;
@@ -17,21 +48,9 @@ int main ()
 	// initial registration
 	while (x == 0) 
 	{
-		// welcome prompt
-		std::cout << "This is your first time executing the program, please register." << std::endl;	
+	        account_registration();        
 
-		// username registration
-		std::cout << "Please select a username: ";
-		std::cin >> username;
-		
-		// password registration
-		std::cout << "Please select a password: ";
-		std::cin >> password;
-
-		// new username and password concatenation
-		new_username_password_concat = username + password;
-
-		// to end while loop
+                // to end while loop
 		x += 1;
 	}
 
