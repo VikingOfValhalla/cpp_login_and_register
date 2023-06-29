@@ -1,9 +1,7 @@
 #include <iostream>
 #include <string>
 
-void print_text(std::string string_input) {
-    std::cout << string_input;
-}
+void print_text(std::string string_input) { std::cout << string_input; }
 
 std::string account_registration() {
     std::string username, password;
@@ -13,101 +11,114 @@ std::string account_registration() {
 
     print_text("Please select a password: ");
     std::cin >> password;
-    
+
     // concatentation for unique comparable value
-    std::string username_password_concat = username + password; 
+    std::string username_password_concat = username + password;
 
     return username_password_concat;
 }
 
-std::string existing_credential_validation(std::string existing_credential_concat) {
-
+std::string existing_credential_validation(
+    std::string existing_credential_concat) {
     /*
     while (existing_credential_concat != NULL) {
-       // do something 
+       // do something
     }
     */
 
     return existing_credential_concat;
 }
 
+int main() {
+    int x = 0;
 
-int main ()
-{
-	int x = 0;
+    // initializing username and password
+    std::string username, password;
 
-	// initializing username and password
-	std::string username, password;
+    // initializing username and password user input checks
+    std::string username_input, password_input;
 
-	// initializing username and password user input checks
-	std::string username_input, password_input;
+    // initializing concatenation for validation
+    std::string new_username_password_concat,
+        exisiting_username_password_concat;
 
-	// initializing concatenation for validation
-	std::string new_username_password_concat, exisiting_username_password_concat;
+    // initial registration
+    while(x == 0) {
+        account_registration();
 
-	// initial registration
-	while (x == 0) 
-	{
-	        account_registration();        
+        // to end while loop
+        x += 1;
+    }
 
-                // to end while loop
-		x += 1;
-	}
+    void existingUserRegistration(int &passwordAttempts, std::string &username,
+                                  std::string &existingCredentialConcat,
+                                  std::string &newCredentialConcat) {
+        while(passwordAttempts > 0) {
+            std::string usernameInput, passwordInput;
+            // existing user username input
+            std::cout << "Username: ";
+            std::cin >> usernameInput;
 
-	// exisiting user login
-	if (x == 1)
-	{
-	
-		// return message
-		std::cout << "Welcome back! \nPlease enter your credentials: " << std::endl;
+            // existing user password input
+            std::cout << "Password: ";
+            std::cin >> passwordInput;
 
-		// password attempts
-		int a = 3;
+            // username validation
+            if(usernameInput == username) {
+                existingCredentialConcat = usernameInput + passwordInput;
+            }
 
+            // password validation
+            if(newCredentialConcat != existingCredentialConcat) {
+                passwordAttempts -= 1;
+                std::cout
+                    << "Thats an incorrect Username or Password, please double "
+                       "check and try again."
+                    << std::endl;
+                std::cout << "You have " << passwordAttempts
+                          << " attempts left." << std::endl;
+            }
 
-		while (a > 0)
-		{
+            // login validated
+            if(newCredentialConcat == existingCredentialConcat) {
+                std::cout << "Welcome " << username << "!" << std::endl;
+                break;
+            }
 
-			// existing user username input
-			std::cout << "Username: ";
-			std::cin >> username_input;
+            // catching hacker
+            if(passwordAttempts == 0) {
+                std::cout << "Please try again later.";
+                break;
+            }
+        }
+    }
 
-			// existing user password input
-			std::cout << "Password: ";
-			std::cin >> password_input;
+    int main() {
+        int initialRegistration = 0;
 
-			// username validation
-			if (username_input == username) 
-			{
-				exisiting_username_password_concat = username_input + password_input;
-			}			
-			
-			// password validation
-			if (new_username_password_concat != exisiting_username_password_concat)
-			{
-				// subtracting from attempts
-				a -= 1;
-				std::cout << "Thats an incorrect Username or Password, please double check and try again." << std::endl; 
-				std::cout << "You have "<< a << " attempts left." << std::endl;
-			}
+        // initializing username and password
+        std::string username, password;
+        std::string newCredentialConcat, existingCredentialConcat;
 
-			// login validated
-			if (new_username_password_concat == exisiting_username_password_concat)
-			{
-				std::cout << "Welcome " << username << "!" << std::endl;
-				break;
-			}
+        // initial registration
+        while(initialRegistration == 0) {
+            newCredentialConcat = new_username_registration(username, password);
+            // to end while loop
+            initialRegistration += 1;
+        }
 
-			// catching hacker
-			if (a == 0)
-			{
-				std::cout << "Please try again later.";
-				break;
-			}
-			
-		}
+        // existing user login
+        if(initialRegistration != 0) {
+            // return message
+            std::cout << "Welcome back! \nPlease enter your credentials: "
+                      << std::endl;
+            int passwordAttempts = 3;
 
-	}
-	
-	return 0;
-}
+            // existing user
+            existingUserRegistration(passwordAttempts, username,
+                                     existingCredentialConcat,
+                                     newCredentialConcat);
+        }
+
+        return 0;
+    }
