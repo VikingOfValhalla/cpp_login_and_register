@@ -1,8 +1,8 @@
 #include <iostream>
+#include <sstream>
 #include <string>
 
-std::string new_username_registration(std::string &username,
-                                      std::string &password) {
+std::string newUserRegistration(std::string &username, std::string &password) {
     // welcome prompt
     std::cout
         << "This is your first time executing the program, please register."
@@ -20,9 +20,9 @@ std::string new_username_registration(std::string &username,
     return new_username_password_concat;
 }
 
-void existingUserRegistration(int &passwordAttempts, std::string &username,
-                              std::string &existingCredentialConcat,
-                              std::string &newCredentialConcat) {
+void userValidation(int passwordAttempts, std::string &username,
+                    std::string &existingCredentialConcat,
+                    std::string &newCredentialConcat) {
     while(passwordAttempts > 0) {
         std::string usernameInput, passwordInput;
         // existing user username input
@@ -57,7 +57,7 @@ void existingUserRegistration(int &passwordAttempts, std::string &username,
 
         // catching hacker
         if(passwordAttempts == 0) {
-            std::cout << "Please try again later.";
+            std::cout << "Please try again later." << std::endl;
             break;
         }
     }
@@ -66,13 +66,15 @@ void existingUserRegistration(int &passwordAttempts, std::string &username,
 int main() {
     int initialRegistration = 0;
 
+    std::stringstream ss;
+
     // initializing username and password
     std::string username, password;
     std::string newCredentialConcat, existingCredentialConcat;
 
     // initial registration
     while(initialRegistration == 0) {
-        newCredentialConcat = new_username_registration(username, password);
+        newCredentialConcat = newUserRegistration(username, password);
         // to end while loop
         initialRegistration += 1;
     }
@@ -82,11 +84,11 @@ int main() {
         // return message
         std::cout << "Welcome back! \nPlease enter your credentials: "
                   << std::endl;
-        int passwordAttempts = 3;
+        const int passwordAttempts = 3;
 
-        // existing user
-        existingUserRegistration(passwordAttempts, username,
-                                 existingCredentialConcat, newCredentialConcat);
+        // user validation
+        userValidation(passwordAttempts, username, existingCredentialConcat,
+                       newCredentialConcat);
     }
 
     return 0;
